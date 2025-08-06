@@ -1,0 +1,102 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<style>
+    .contact-card {
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        padding: 30px;
+    }
+
+    .contact-heading {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #343a40;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #495057;
+    }
+
+    .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+        font-weight: 500;
+    }
+
+    .btn-primary:hover {
+        background-color: #084cdf;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+    .map-card {
+        height: 100%;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row g-5 align-items-stretch justify-content-center">
+
+        <!-- Form -->
+        <div class="col-lg-6">
+            <div class="contact-card">
+                <h3 class="contact-heading text-center mb-3">📨 Bize Ulaşın</h3>
+                <p class="text-muted text-center mb-4">Görüş, öneri veya sorularınızı bizimle paylaşabilirsiniz.</p>
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_ad_soyad" class="form-label">Ad Soyad</label>
+                        {{ form.ad_soyad|add_class:"form-control" }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_email" class="form-label">E-Posta</label>
+                        {{ form.email|add_class:"form-control" }}
+                    </div>
+                    <div class="mb-4">
+                        <label for="id_mesaj" class="form-label">Mesajınız</label>
+                        {{ form.mesaj|add_class:"form-control" }}
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 py-2">Mesajı Gönder</button>
+                </form>
+
+                <div class="text-center mt-4">
+                    <a href="{% url 'index' %}" class="btn btn-secondary">← Anasayfaya Dön</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Harita -->
+        <div class="col-lg-6">
+            <div class="map-card">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3010.1849424961238!2d29.187583676425483!3d41.0212096186279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cacf798f667773%3A0xae53638020f328d5!2zTWV0YXRha2FzICYgTWV0YUZpbmFucyBEYW7EscWfbWFubMSxaw!5e0!3m2!1str!2str!4v1754487488328!5m2!1str!2str" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

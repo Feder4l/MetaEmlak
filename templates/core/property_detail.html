@@ -1,0 +1,178 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  body {
+    background-color: #f2f4f8;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .property-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+    padding: 30px;
+  }
+
+  .property-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .info-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  .left-section {
+    flex: 1 1 45%;
+  }
+
+  .right-section {
+    flex: 1 1 50%;
+  }
+
+  .property-title {
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .property-price {
+    font-size: 24px;
+    color: #28a745;
+    font-weight: 600;
+  }
+
+  .description {
+    margin: 25px 0;
+  }
+
+  .icon-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 16px;
+  }
+
+  .btn-back {
+    margin-top: 20px;
+  }
+
+  .share-buttons a {
+    margin-right: 10px;
+    font-size: 18px;
+  }
+
+  iframe {
+    border-radius: 10px;
+  }
+
+  .owner-info {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 10px;
+  }
+
+  .owner-info h6 {
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .info-section {
+      flex-direction: column;
+    }
+
+    .left-section, .right-section {
+      flex: 1 1 100%;
+    }
+
+    .property-image {
+      height: 250px;
+    }
+  }
+</style>
+
+<div class="property-container">
+  <div class="info-section">
+    <!-- Sol: Görsel -->
+    <div class="left-section">
+      <img src="{{ property.image.url }}" alt="{{ property.title }}" class="property-image">
+    </div>
+
+    <!-- Sağ: Detaylar -->
+    <div class="right-section">
+      <h1 class="property-title">{{ property.title }}</h1>
+      <p class="property-price">{{ property.price }} TL</p>
+
+      <div class="icon-text">
+        <i class="bi bi-geo-alt-fill"></i> {{ property.city }}
+      </div>
+      <div class="icon-text">
+        <i class="bi bi-house-door-fill"></i> {{ property.bedrooms }} Oda
+      </div>
+      <div class="icon-text">
+        <i class="bi bi-droplet-half"></i> {{ property.bathrooms }} Banyo
+      </div>
+      <div class="icon-text">
+        <i class="bi bi-calendar-event-fill"></i> Yayınlanma: {{ property.created_at|date:"d M Y" }}
+      </div>
+
+      <!-- Açıklama -->
+      <div class="description">
+        <h5>İlan Açıklaması</h5>
+        <p class="text-muted">{{ property.description }}</p>
+      </div>
+
+      <!-- Paylaş Butonları -->
+      <div class="share-buttons mb-3">
+        <h6>Paylaş:</h6>
+        <a href="https://api.whatsapp.com/send?text={{ request.build_absolute_uri }}" target="_blank" class="btn btn-success btn-sm">
+          <i class="bi bi-whatsapp"></i> WhatsApp
+        </a>
+        <a href="mailto:?subject={{ property.title }}&body={{ request.build_absolute_uri }}" class="btn btn-outline-secondary btn-sm">
+          <i class="bi bi-envelope"></i> Mail
+        </a>
+      </div>
+
+      <!-- İlan Sahibi -->
+      <div class="owner-info">
+        <h6>İlan Sahibi</h6>
+        <p><strong>Ad:</strong> {{ property.owner.get_full_name }}</p>
+        <p><strong>Email:</strong> {{ property.owner.email }}</p>
+        <p><strong>Telefon:</strong> {{ property.owner.profile.phone_number }}</p>
+      </div>
+
+      <!-- Geri Dön Butonu -->
+      <div class="btn-back">
+        <a href="{% url 'all_properties' %}" class="btn btn-outline-primary">← Tüm ilanlara dön</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Harita -->
+  <div class="mt-5">
+    <h5>Konum</h5>
+    <iframe 
+      src="https://www.google.com/maps?q={{ property.city|urlencode }}&output=embed" 
+      width="100%" 
+      height="300" 
+      allowfullscreen="" 
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</div>
+
+{% endblock %}

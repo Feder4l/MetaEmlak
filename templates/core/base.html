@@ -1,0 +1,101 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Meta Emlak{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-md position-sticky mt-3">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <img src="{% static 'image/Logo.png' %}" alt="Meta Emlak Logo" width="220"/>
+            </a>
+            <div class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#btn">
+                <span class="navbar-toggler-icon"></span>
+            </div>
+            <div class="collapse navbar-collapse text-center" id="btn">
+                <ul class="navbar-nav ms-auto lead">
+                    <li class="nav-item">
+                        <a href="{% url 'index' %}" class="nav-link active mx-lg-2">Anasayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link mx-2">Hakkımızda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'all_properties' %}" class="nav-link mx-2">İlanlarımız</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'iletisim' %}" class="nav-link mx-2">İletişim</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SAYFA İÇERİĞİ -->
+    <main>
+        {% block content %}
+       
+        {% endblock %}
+    </main>
+
+    <!-- FOOTER -->
+    <div class="container pt-1 pb-1">
+        <div class="row mt-5 justify-content-between">
+            <div class="col-6 col-lg-2">
+                <h4>Popular Searches</h4>
+                <ul class="text-black-50 list-unstyled lead">
+                    <li>Apartment for Rent</li>
+                    <li>Apartment Low to hide</li>
+                    <li>Offices for Buy</li>
+                    <li>Offices for Rent</li>
+                </ul>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h4>About Us</h4>
+                <ul class="text-black-50 list-unstyled lead">
+                    <li>Our Story</li>
+                    <li>Team Members</li>
+                    <li>Careers</li>
+                    <li>Contact Us</li>
+                </ul>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h4>Quick links</h4>
+                <ul class="text-black-50 list-unstyled lead">
+                    <li>Terms of Use</li>
+                    <li>Privacy Policy</li>
+                    <li>Contact Support</li>
+                    <li>FAQs</li>
+                </ul>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h4>Support</h4>
+                <ul class="text-black-50 list-unstyled lead">
+                    <li>Help Center</li>
+                    <li>Loan Support</li>
+                    <li>Management</li>
+                    <li>Privacy Policy</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3 mb-3">
+        <div class="d-flex justify-content-between flex-wrap">
+            <img class="img-fluid object-fit-contain d-md-block d-none" src="{% static 'image/Logo.png' %}" alt="Logo" width="200">
+            <p class="text-black-50">© 2021 Besnik. All Rights Reserved</p>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
