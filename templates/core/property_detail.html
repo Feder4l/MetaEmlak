@@ -131,6 +131,15 @@
 .carousel-control-next-icon:hover {
   background-color: rgba(0, 0, 0, 0.8);
 }
+.seller-message {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+}
+.seller-message h6 {
+  font-weight: 600;
+  color: #555;
+}
 
 
 </style>
@@ -189,6 +198,14 @@
         >
       {% endfor %}
     </div>
+    <!-- Satıcı Mesajı -->
+    {% if property.owner_message %}
+    <div class="seller-message mt-3 p-3 border rounded bg-light">
+      <h6 class="mb-2">Satıcıdan Mesaj</h6>
+      <p class="mb-0">{{ property.owner_message }}</p>
+    </div>
+    {% endif %}
+
   {% else %}
     <img src="{{ property.image.url }}" alt="{{ property.title }}" class="property-image">
   {% endif %}

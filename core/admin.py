@@ -8,5 +8,23 @@ class PropertyImageInline(admin.TabularInline):
 class PropertyAdmin(admin.ModelAdmin):
     inlines = [PropertyImageInline]
 
-admin.site.register(Property, PropertyAdmin)
+    # ✅ Liste görünümünde göstermek istediğin alanlar
+    list_display = ("title", "price", "city", "owner", "created_at")
 
+    # ✅ Admin formunda gösterilecek alanlar (sıralı)
+    fields = (
+        "title", 
+        "price", 
+        "city", 
+        "bedrooms", 
+        "bathrooms", 
+        "image",
+        "category",
+        "owner", 
+        "owner_message",  # Satıcıdan Mesaj alanı
+    )
+
+    search_fields = ("title", "city", "owner__username")
+    list_filter = ("city", "created_at")
+
+admin.site.register(Property, PropertyAdmin)
